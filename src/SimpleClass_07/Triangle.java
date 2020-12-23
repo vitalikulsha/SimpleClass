@@ -6,6 +6,8 @@ package SimpleClass_07;
 периметра и точки пересечения медиан.
  */
 
+import java.util.Arrays;
+
 import static java.lang.Math.*;
 
 public class Triangle {
@@ -24,18 +26,22 @@ public class Triangle {
 
     public Triangle createTriangle() {
         //создание и проверка существования треугольник с заданными сторонами
+        //основанием треугольника сделаем наибольшую сторону - сторона А (sideA).
         boolean result = true;
+        int[] temSideArray = new int[3];
         while (result) {
-            sideA = (int) (random() * 100) + 1;
-            sideB = (int) (random() * 100) + 1;
-            sideC = (int) (random() * 100) + 1;
-            if ((sideA + sideB) > sideC && (sideA + sideC) > sideB && (sideB + sideC) > sideA) {
+            int tempSideA = (int) (random() * 100) + 1;
+            int tempSideB = (int) (random() * 100) + 1;
+            int tempSideC = (int) (random() * 100) + 1;
+            if ((tempSideA + tempSideB) > tempSideC && (tempSideA + tempSideC) > tempSideB && (tempSideB + tempSideC) > tempSideA) {
+                temSideArray = new int[]{tempSideA, tempSideB, tempSideC};
+                Arrays.sort(temSideArray);
                 result = false;
             } else {
                 result = true;
             }
         }
-        return new Triangle(sideA, sideB, sideC);
+        return new Triangle(temSideArray[2], temSideArray[1], temSideArray[0]);
     }
 
     public double calculateAreaTriangle() {
@@ -45,6 +51,25 @@ public class Triangle {
 
     public int calculatePerimeterTriangle() {
         return sideA + sideB + sideC;
+    }
+
+    /*
+    Пусть сторона sideA лежит на оси координат Х. Тогда начало строны sideA [0,0] и конец [sideA,0].
+    Сторна sideB выходит из конца стороны sideA, а сторона sideC выходит из начала sideA.
+    Сороны sidB и sideC асположены выше sideA, т.е. у них координат Y всегда положительна,
+    т.е. треугольник лежит в первой (положительной) четверти декартовой системы координат.
+    Исходя из этих условий найдем координаты точки пересечения меридиан треугольника.
+    */
+    public double[] calculateCoordinatePointMeridian() {
+        //находим длину медианы к sideA и sideB
+        double medianA = sqrt((2 * pow(sideB, 2)) + (2 * pow(sideC, 2)) - pow(sideA, 2)) / 2;
+        double medianB = sqrt((2 * pow(sideA, 2)) + (2 * pow(sideC, 2)) - pow(sideB, 2)) / 2;
+        //находим координату Y (высота треугольника из медиан)
+        double halfPerimeter = ((2 * medianB / 3) + (medianA / 3) + (sideA / 2)) / 2;
+        double coordinateY = 2 * sqrt(halfPerimeter * (halfPerimeter - (2 * medianB / 3)) * (halfPerimeter - (medianA / 3)) + (halfPerimeter - sideA / 2)) /
+                (sideA / 2);
+        double coordinateX = sqrt((2 * pow(medianB, 2) / 3) - pow(coordinateY, 2));
+        return new double[]{coordinateX, coordinateY};
     }
 
     @Override
