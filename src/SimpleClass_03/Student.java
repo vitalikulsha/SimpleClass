@@ -40,22 +40,6 @@ public class Student {
         return new Student(fullName, groupNumber, assessment);
     }
 
-    //Добавьте возможность вывода фамилий и номеров групп студентов, имеющих оценки, равные только 9 или 10.
-    void printExcellentStudent(Student student) {
-        int count = 0;
-        for (int i = 0; i < student.assessment.length; i++) {
-            if (student.assessment[i] >= 9 && student.assessment[i] <= 10) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        if (count == 5) {
-            System.out.println("Фамилия и инициалы - '" + student.fullName + '\'' +
-                    ", номер группы - '" + groupNumber + '\'');
-        }
-    }
-
     @Override
     public String toString() {
         return "Студент: " +

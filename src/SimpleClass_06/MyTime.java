@@ -14,8 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.BufferedReader;
 
-public class TimeRedactor {
+public class MyTime {
     Date time;
+    int hours;
+    int minutes;
+    int seconds;
 
     public Date setDefaultTime() {
         time = new Date();
@@ -38,7 +41,7 @@ public class TimeRedactor {
     public Date changeHours(BufferedReader reader) {
         System.out.print("Изменить текущее значение часов на HH = ");
         try {
-            int hours = Integer.parseInt(reader.readLine());
+            hours = Integer.parseInt(reader.readLine());
             if (hours >= 0 && hours <= 23) {
                 time.setHours(hours);
             } else {
@@ -54,7 +57,7 @@ public class TimeRedactor {
     public Date changeMinutes(BufferedReader reader) {
         System.out.print("Изменить текущее значение минут на mm = ");
         try {
-            int minutes = Integer.parseInt(reader.readLine());
+            minutes = Integer.parseInt(reader.readLine());
             if (minutes >= 0 && minutes <= 59) {
                 time.setMinutes(minutes);
             } else {
@@ -70,7 +73,7 @@ public class TimeRedactor {
     public Date changeSeconds(BufferedReader reader) {
         System.out.print("Изменить текущее значение секунд на ss = ");
         try {
-            int seconds = Integer.parseInt(reader.readLine());
+            seconds = Integer.parseInt(reader.readLine());
             if (seconds >= 0 && seconds <= 59) {
                 time.setSeconds(seconds);
             } else {
@@ -89,3 +92,4 @@ public class TimeRedactor {
         return "Текущее значение времени time = " + simpleDateFormat.format(time);
     }
 }
+

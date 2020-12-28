@@ -12,5 +12,12 @@ public class Simple_02 {
         Test2 testParametr = new Test2(2, 3);
         System.out.println(test.toString());
         System.out.println(testParametr.toString());
+        System.out.println("TestParametr: variableFirst = " + testParametr.getVariableFirst() +
+                ", variableSecond = " + testParametr.getVariableSecond());
+        System.out.println("Test: variableFirst = " + test.getVariableFirst() +
+                ", variableSecond = " + test.getVariableSecond());
+        testParametr.setVariableFirst(10);
+        testParametr.setVariableSecond(20);
+        System.out.println(testParametr.toString());
     }
 }

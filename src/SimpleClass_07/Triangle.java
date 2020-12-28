@@ -28,28 +28,28 @@ public class Triangle {
         //создание и проверка существования треугольник с заданными сторонами
         //основанием треугольника сделаем наибольшую сторону - сторона А (sideA).
         boolean result = true;
-        int[] temSideArray = new int[3];
+        int[] tempSideArray = new int[3];
         while (result) {
             int tempSideA = (int) (random() * 100) + 1;
             int tempSideB = (int) (random() * 100) + 1;
             int tempSideC = (int) (random() * 100) + 1;
             if ((tempSideA + tempSideB) > tempSideC && (tempSideA + tempSideC) > tempSideB && (tempSideB + tempSideC) > tempSideA) {
-                temSideArray = new int[]{tempSideA, tempSideB, tempSideC};
-                Arrays.sort(temSideArray);
+                tempSideArray = new int[]{tempSideA, tempSideB, tempSideC};
+                Arrays.sort(tempSideArray);
                 result = false;
             } else {
                 result = true;
             }
         }
-        return new Triangle(temSideArray[2], temSideArray[1], temSideArray[0]);
+        return new Triangle(tempSideArray[2], tempSideArray[1], tempSideArray[0]);
     }
 
-    public double calculateAreaTriangle() {
+    public double calcArea() {
         double halfPerimeter = (sideA + sideB + sideC) / 2;
         return sqrt(halfPerimeter * (halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC));
     }
 
-    public int calculatePerimeterTriangle() {
+    public int calcPerimeter() {
         return sideA + sideB + sideC;
     }
 
@@ -60,11 +60,11 @@ public class Triangle {
     т.е. треугольник лежит в первой (положительной) четверти декартовой системы координат.
     Исходя из этих условий найдем координаты точки пересечения меридиан треугольника.
     */
-    public double[] calculateCoordinatePointMeridian() {
+    public double[] calcCoordinatePointMeridian() {
         //находим длину медианы к sideA и sideB
         double medianA = sqrt((2 * pow(sideB, 2)) + (2 * pow(sideC, 2)) - pow(sideA, 2)) / 2;
         double medianB = sqrt((2 * pow(sideA, 2)) + (2 * pow(sideC, 2)) - pow(sideB, 2)) / 2;
-        //находим координату Y (высота треугольника из медиан)
+        //находим координату Y (высота треугольника из медиан) и X
         double halfPerimeter = ((2 * medianB / 3) + (medianA / 3) + (sideA / 2)) / 2;
         double coordinateY = 2 * sqrt(halfPerimeter * (halfPerimeter - (2 * medianB / 3)) * (halfPerimeter - (medianA / 3)) + (halfPerimeter - sideA / 2)) /
                 (sideA / 2);

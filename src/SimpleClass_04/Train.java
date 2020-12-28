@@ -42,36 +42,6 @@ public class Train {
         return new Train(nameDestination, numberTrain, timeDeparture);
     }
 
-    //добавьте возможность сортировки элементов массива по номерам поездов.
-    Train[] sortNumberTrain(Train[] trains) {
-        for (int step = trains.length / 2; step > 0; step /= 2) {
-            for (int i = step; i < trains.length; i++) {
-                for (int j = i - step; j >= 0 && trains[j].numberTrain > trains[j + step].numberTrain; j -= step) {
-                    Train temp = trains[j];
-                    trains[j] = trains[j + step];
-                    trains[j + step] = temp;
-                }
-            }
-        }
-        return trains;
-    }
-
-    //Добавьте возможность вывода информации о поезде, номер которого введен пользователем.
-    String searchNumberTrain(BufferedReader reader, Train[] trains) throws IOException {
-        System.out.print("Для поиска введите номер поезда: ");
-        int readNumberTrain = Integer.parseInt(reader.readLine());
-        int count = 0;
-        Train tempTrain = new Train();
-        for (int i = 0; i < trains.length; i++) {
-            if (trains[i].numberTrain == readNumberTrain) {
-                tempTrain = trains[i];
-            } else {
-                count++;
-            }
-        }
-        return count != trains.length ? tempTrain.toString() : "Поезд с номером " + readNumberTrain + " не найден";
-    }
-
     //Добавьте возможность сортировки массив по пункту назначения,
     //причем поезда с одинаковыми пунктами назначения должны быть упорядочены по времени отправления.
     Train[] sortNameDestination(Train[] trains) {
@@ -98,6 +68,8 @@ public class Train {
         }
         return trains;
     }
+
+
 
     @Override
     public String toString() {

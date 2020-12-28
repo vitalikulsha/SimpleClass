@@ -10,22 +10,22 @@ package SimpleClass_05;
  */
 public class Simple_05 {
     public static void main(String[] args) {
-        Counter count1 = new Counter();
+        Counter countDefault = new Counter();
         Counter countRandom = new Counter(0, 10);
-        Counter count2 = new Counter(5, 0, 10);
-        System.out.println(count1.toString());
+        Counter count = new Counter(5, 0, 10);
+        System.out.println(countDefault.toString());
         System.out.println(countRandom.toString());
-        System.out.println(count2.toString());
+        System.out.println(count.toString());
         Counter countError = new Counter(-5, 0, 5);
-        Counter count3 = new Counter(2, 0, 20);
+        Counter countValue = new Counter(2, 0, 20);
         countError.reduceCount();
-        count1.reduceCount();
+        countDefault.reduceCount();
         countRandom.reduceCount();
-        count3.reduceCount();
-        count3.reduceCount();
-        count3.reduceCount();
-        count3.increaseCount();
-        count3.increaseCount();
-        System.out.println("Текущее значение счетчика count = " + count3.currentValueCount());
+        countValue.reduceCount();
+        countValue.reduceCount();
+        countValue.reduceCount();
+        countValue.increaseCount();
+        countValue.increaseCount();
+        System.out.println("Текущее значение счетчика count = " + countValue.currentValueCount());
     }
 }

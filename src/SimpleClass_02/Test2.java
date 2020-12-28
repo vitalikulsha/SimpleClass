@@ -10,6 +10,8 @@ public class Test2 {
     int variableSecond;
 
     public Test2() {
+        this.variableFirst = 0;
+        this.variableSecond = 0;
     }
 
     public Test2(int variableFirst, int variableSecond) {

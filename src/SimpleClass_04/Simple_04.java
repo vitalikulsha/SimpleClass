@@ -19,23 +19,55 @@ public class Simple_04 {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Train[] trains = new Train[5];
         for (int i = 0; i < trains.length; i++) {
-            trains[i] = new Train().readTrain(reader);
+            Train tr = new Train();
+            tr.readTrain(reader);
+            trains[i] = tr;
         }
         System.out.println("\nСписок поездов:");
         for (Train train : trains) {
             System.out.println(train.toString());
         }
-        Train[] sortNumberTrainArray = new Train().sortNumberTrain(trains);
+        Train[] sortNumberTrainArray = sortNumberTrain(trains);
         System.out.println("\nСписок поездов, отсортированых по номерам:");
         for (Train train : sortNumberTrainArray) {
             System.out.println(train.toString());
         }
-        System.out.println("\n" + new Train().searchNumberTrain(reader, trains));
+        System.out.println("\n" + searchNumberTrain(reader, trains));
         Train[] sortTimeDepartureArray = new Train().sortNameDestination(trains);
         System.out.println("\nСписок поездов, отсортированных по пунктам назначени: ");
         for (Train train : sortTimeDepartureArray) {
             System.out.println(train.toString());
         }
         reader.close();
+    }
+
+    //добавьте возможность сортировки элементов массива по номерам поездов.
+    public static Train[] sortNumberTrain(Train[] trains) {
+        for (int step = trains.length / 2; step > 0; step /= 2) {
+            for (int i = step; i < trains.length; i++) {
+                for (int j = i - step; j >= 0 && trains[j].numberTrain > trains[j + step].numberTrain; j -= step) {
+                    Train temp = trains[j];
+                    trains[j] = trains[j + step];
+                    trains[j + step] = temp;
+                }
+            }
+        }
+        return trains;
+    }
+
+    //Добавьте возможность вывода информации о поезде, номер которого введен пользователем.
+    public static String searchNumberTrain(BufferedReader reader, Train[] trains) throws IOException {
+        System.out.print("Для поиска введите номер поезда: ");
+        int readNumberTrain = Integer.parseInt(reader.readLine());
+        int count = 0;
+        Train tempTrain = new Train();
+        for (int i = 0; i < trains.length; i++) {
+            if (trains[i].numberTrain == readNumberTrain) {
+                tempTrain = trains[i];
+            } else {
+                count++;
+            }
+        }
+        return count != trains.length ? tempTrain.toString() : "Поезд с номером " + readNumberTrain + " не найден";
     }
 }
