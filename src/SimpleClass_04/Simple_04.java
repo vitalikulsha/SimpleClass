@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.Arrays;
 
 public class Simple_04 {
     public static void main(String[] args) throws IOException, ParseException {
@@ -27,32 +28,18 @@ public class Simple_04 {
         for (Train train : trains) {
             System.out.println(train.toString());
         }
-        Train[] sortNumberTrainArray = sortNumberTrain(trains);
+        Arrays.sort(trains, Train.NumberTrainComparator);
         System.out.println("\nСписок поездов, отсортированых по номерам:");
-        for (Train train : sortNumberTrainArray) {
+        for (Train train : trains) {
             System.out.println(train.toString());
         }
         System.out.println("\n" + searchNumberTrain(reader, trains));
-        Train[] sortTimeDepartureArray = new Train().sortNameDestination(trains);
-        System.out.println("\nСписок поездов, отсортированных по пунктам назначени: ");
-        for (Train train : sortTimeDepartureArray) {
+        Arrays.sort(trains, Train.NameAndTimeComparator);
+        System.out.println("\nСписок поездов, отсортированных по пунктам назначения: ");
+        for (Train train : trains) {
             System.out.println(train.toString());
         }
         reader.close();
-    }
-
-    //добавьте возможность сортировки элементов массива по номерам поездов.
-    public static Train[] sortNumberTrain(Train[] trains) {
-        for (int step = trains.length / 2; step > 0; step /= 2) {
-            for (int i = step; i < trains.length; i++) {
-                for (int j = i - step; j >= 0 && trains[j].numberTrain > trains[j + step].numberTrain; j -= step) {
-                    Train temp = trains[j];
-                    trains[j] = trains[j + step];
-                    trains[j + step] = temp;
-                }
-            }
-        }
-        return trains;
     }
 
     //Добавьте возможность вывода информации о поезде, номер которого введен пользователем.

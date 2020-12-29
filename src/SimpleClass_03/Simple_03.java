@@ -31,7 +31,7 @@ public class Simple_03 {
             int count = 0;
             for (int j = 0; j < students[i].assessment.length; j++) {
                 if (students[i].assessment[j] == 9 || students[i].assessment[j] == 10) {
-                    if (j == students[i].assessment.length - 1) {
+                    if (j == (students[i].assessment.length - 1)) {
                         System.out.println("Фамилия и инициалы - '" + students[i].fullName + '\'' +
                                 ", номер группы - '" + students[i].groupNumber + '\'');
                     }

@@ -31,45 +31,63 @@ public class Train {
         this.timeDeparture = timeDeparture;
     }
 
-    Train readTrain(BufferedReader reader) throws IOException, ParseException {
+    public String getNameDestination() {
+        return nameDestination;
+    }
+
+    public int getNumberTrain() {
+        return numberTrain;
+    }
+
+    public Date getTimeDeparture() {
+        return timeDeparture;
+    }
+
+    public Train readTrain(BufferedReader reader) throws IOException, ParseException {
         System.out.print("Введите пункт назначения: ");
-        nameDestination = reader.readLine();
+        this.nameDestination = reader.readLine();
         System.out.print("Введите номер поезда: ");
-        numberTrain = Integer.parseInt(reader.readLine());
+        try {
+            this.numberTrain = Integer.parseInt(reader.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Номер поезда введен неверно: " + e +
+                    ".\nНомер поезда установлен по умолчанию '0'.");
+            this.numberTrain = 0;
+        }
         System.out.print("Введите время отправления поезда в формате 'HH-mm': ");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH-mm");
-        timeDeparture = simpleDateFormat.parse(reader.readLine());
+        try {
+            this.timeDeparture = simpleDateFormat.parse(reader.readLine());
+        } catch (ParseException e) {
+            System.out.println("Время отправления поезда введено неверно: " + e +
+                    ".\nВремя отправления поезда установлено по умолчанию '00-00'.");
+            this.timeDeparture = simpleDateFormat.parse("00-00");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new Train(nameDestination, numberTrain, timeDeparture);
     }
 
+    //добавьте возможность сортировки элементов массива по номерам поездов.
+    public static Comparator<Train> NumberTrainComparator = new Comparator<Train>() {
+        @Override
+        public int compare(Train tr1, Train tr2) {
+            return tr1.getNumberTrain() - tr2.getNumberTrain();
+        }
+    };
+
     //Добавьте возможность сортировки массив по пункту назначения,
     //причем поезда с одинаковыми пунктами назначения должны быть упорядочены по времени отправления.
-    Train[] sortNameDestination(Train[] trains) {
-        boolean sorted = true;
-        while (sorted) {
-            sorted = false;
-            for (int i = 0; i < trains.length - 1; i++) {
-                if (trains[i].nameDestination.compareTo(trains[i + 1].nameDestination) >= 0) {
-                    if (trains[i].nameDestination.compareTo(trains[i + 1].nameDestination) > 0) {
-                        Train temp = trains[i];
-                        trains[i] = trains[i + 1];
-                        trains[i + 1] = temp;
-                        sorted = true;
-                    } else {
-                        if (trains[i].timeDeparture.compareTo(trains[i + 1].timeDeparture) > 0) {
-                            Train temp = trains[i];
-                            trains[i] = trains[i + 1];
-                            trains[i + 1] = temp;
-                            sorted = true;
-                        }
-                    }
-                }
+    public static Comparator<Train> NameAndTimeComparator = new Comparator<Train>() {
+        @Override
+        public int compare(Train tr1, Train tr2) {
+            int flag = tr1.getNameDestination().compareTo(tr2.getNameDestination());
+            if (flag == 0) {
+                flag = tr1.getTimeDeparture().compareTo(tr2.getTimeDeparture());
             }
+            return flag;
         }
-        return trains;
-    }
-
-
+    };
 
     @Override
     public String toString() {
