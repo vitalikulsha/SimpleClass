@@ -54,38 +54,32 @@ public class Simple_08 {
     public static Customer[] createCustomer(int lengthArr) {
         Customer[] customerArr = new Customer[lengthArr];
         for (int i = 0; i < customerArr.length; i++) {
-            customerArr[i] = new Customer(i, randomLastName(), randomFirstName(), randomPatronymic(), randomAddress(), (100 + i), ((100 + i) * 100));
+            customerArr[i] = new Customer((i + 1), randomLastName(), randomFirstName(), randomPatronymic(), randomAddress(),
+                    (101 + i), ((101 + i) * 100));
         }
         return customerArr;
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Customer[] customer = createCustomer(5);
-        /*Customer[] customer = new Customer[5];
-        customer[0] = new Customer(1, "Иванов", "Иван", "Иванович", "Жодино", 101, 10100);
-        customer[1] = new Customer(2, "Иванов", "Иван", "Александрович", "Минск", 102, 10200);
-        customer[2] = new Customer(3, "Иванов", "Александр", "Иванович", "Борисов", 103, 10300);
-        customer[3] = new Customer(4, "Алешин", "Алексей", "Алексеевич", "Смолевичи", 104, 10400);
-        customer[4] = new Customer(5, "Сергеев", "Сергей", "Сергеевич", "Логойск", 105, 10500);
-        */
-        System.out.println("Список покупателей в алфовитном порядке:");
+        Customer[] customer = createCustomer(10);
+        System.out.println("Список покупателей в алфавитном порядке:");
         sortCustomerAlphabet(customer);
         System.out.println("Список покупателей, у которых номер кредитной карточки находится в заданном интервале:");
         searchCreditCardNumber(reader, customer);
         reader.close();
     }
 
-    //вывод списка покупателей по алфовиту
-    public static void sortCustomerAlphabet(Customer[] customers) {
-        Arrays.sort(customers, Customer.SortAlphabet);
-        for (Customer cust : customers) {
+    //вывод списка покупателей по алфавиту
+    public static void sortCustomerAlphabet(Customer[] customer) {
+        Arrays.sort(customer, Customer.SortAlphabet);
+        for (Customer cust : customer) {
             System.out.println(cust.toString());
         }
     }
 
     //вывод списка покупателей, у которых номер кредитной карточки находится в заданном интервале
-    public static void searchCreditCardNumber(BufferedReader reader, Customer[] customers) throws IOException {
+    public static void searchCreditCardNumber(BufferedReader reader, Customer[] customer) throws IOException {
         System.out.print("Введите начало интервала: ");
         int begin = Integer.parseInt(reader.readLine());
         System.out.print("Введите конец интервала: ");
@@ -96,16 +90,15 @@ public class Simple_08 {
             end = temp;
         }
         int count = 0;
-        for (int i = 0; i < customers.length; i++) {
-            if (customers[i].getCreditCardNumber() >= begin && customers[i].getCreditCardNumber() <= end) {
-                System.out.println(customers[i].toString());
+        for (int i = 0; i < customer.length; i++) {
+            if (customer[i].getCreditCardNumber() >= begin && customer[i].getCreditCardNumber() <= end) {
+                System.out.println(customer[i].toString());
             } else {
                 count++;
             }
         }
-        if (count == customers.length) {
+        if (count == customer.length) {
             System.out.println("Покупатели с кредитными картами в интервале [" + begin + ", " + end + "] не найдены.");
         }
     }
-
 }
