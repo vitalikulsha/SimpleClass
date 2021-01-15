@@ -16,7 +16,7 @@ public class Book {
     private String title;
     private String author;
     private String publishingHouse;
-    private int yearPublication;
+    private int publicationYear;
     private int numberPages;
     private double price;
     private String typeBinding;
@@ -24,12 +24,12 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String title, String author, String publishingHouse, int yearPublication, int numberPages, double price, String typeBinding) {
+    public Book(int id, String title, String author, String publishingHouse, int publicationYear, int numberPages, double price, String typeBinding) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publishingHouse = publishingHouse;
-        this.yearPublication = yearPublication;
+        this.publicationYear = publicationYear;
         this.numberPages = numberPages;
         this.price = price;
         this.typeBinding = typeBinding;
@@ -67,12 +67,12 @@ public class Book {
         this.publishingHouse = publishingHouse;
     }
 
-    public int getYearPublication() {
-        return yearPublication;
+    public int getPublicationYear() {
+        return publicationYear;
     }
 
-    public void setYearPublication(int yearPublication) {
-        this.yearPublication = yearPublication;
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
     }
 
     public int getNumberPages() {
@@ -106,7 +106,7 @@ public class Book {
                 ", название - '" + title + '\'' +
                 ", автор(ы) - '" + author + '\'' +
                 ", издательство - '" + publishingHouse + '\'' +
-                ", год издания - " + yearPublication +
+                ", год издания - " + publicationYear +
                 ", количество страниц - " + numberPages +
                 ", цена - " + price +
                 ", тип переплета - '" + typeBinding + '\'' +
