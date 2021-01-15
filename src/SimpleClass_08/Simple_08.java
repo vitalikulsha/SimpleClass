@@ -1,11 +1,4 @@
 package SimpleClass_08;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Random;
-
 /* Task 08
 8. Создать класс Customer, спецификация которого приведена ниже.
 Определить конструкторы, set- и get- методы и метод  toString().
@@ -16,24 +9,48 @@ import java.util.Random;
 a) список покупателей в алфавитном порядке;
 b) список покупателей, у которых номер кредитной карточки находится в заданном интервале
  */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Random;
+
 public class Simple_08 {
-    private Customer customer;
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        CustomerHolder customerHolder = new CustomerHolder();
+        customerHolder.setQuantityCustomers(9);
+        customerHolder.setCustomer(new Customer[customerHolder.getQuantityCustomers()]);
+        for (int i = 0; i < customerHolder.getCustomer().length; i++) {
+            customerHolder.getCustomer()[i] = new Customer((i + 1), randomLastName(), randomFirstName(), randomPatronymic(),
+                    randomAddress(), (i + 101), ((i + 101) * 100));
+        }
+        System.out.println("Исходный список покупателей:\n" + customerHolder.toString());
+        System.out.println("Список покупателей в алфавитном порядке:");
+        customerHolder.sortCustomerAlphabet();
+        System.out.println("\nСписок покупателей, у которых номер кредитной карточки находится в заданном интервале:");
+        int[] interval = readInterval(reader);
+        customerHolder.searchCreditCardNumber(interval[0], interval[1]);
+        reader.close();
+    }
+
+    //Ввод и проверка интервала для поиска номеров кредитных карточек
+    private static int[] readInterval(BufferedReader reader) throws IOException {
+        System.out.print("Введите начало интервала: ");
+        int begin = Integer.parseInt(reader.readLine());
+        System.out.print("Введите конец интервала: ");
+        int end = Integer.parseInt(reader.readLine());
+        while (begin > end) {
+            System.out.print("Конец интервала введен не верно!\nВведите конец интервала:");
+            end = Integer.parseInt(reader.readLine());
+        }
+        return new int[]{begin, end};
+    }
+
     private static String[] lastNameArr = {"Иванов", "Петров", "Семенов", "Сергеев", "Алешин"};
     private static String[] firstNameArr = {"Иван", "Петр", "Семен", "Сергей", "Алексей"};
     private static String[] patronymicArr = {"Иванович", "Петрович", "Семенович", "Сергеевич", "Алексеевич"};
     private static String[] addressArr = {"Жодино", "Борисов", "Минск", "Логойск", "Смолевичи"};
-
-    public Simple_08(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     private static String randomLastName() {
         return lastNameArr[new Random().nextInt(lastNameArr.length)];
@@ -49,56 +66,5 @@ public class Simple_08 {
 
     private static String randomAddress() {
         return addressArr[new Random().nextInt(addressArr.length)];
-    }
-
-    public static Customer[] createCustomer(int lengthArr) {
-        Customer[] customerArr = new Customer[lengthArr];
-        for (int i = 0; i < customerArr.length; i++) {
-            customerArr[i] = new Customer((i + 1), randomLastName(), randomFirstName(), randomPatronymic(), randomAddress(),
-                    (101 + i), ((101 + i) * 100));
-        }
-        return customerArr;
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Customer[] customer = createCustomer(10);
-        System.out.println("Список покупателей в алфавитном порядке:");
-        sortCustomerAlphabet(customer);
-        System.out.println("Список покупателей, у которых номер кредитной карточки находится в заданном интервале:");
-        searchCreditCardNumber(reader, customer);
-        reader.close();
-    }
-
-    //вывод списка покупателей по алфавиту
-    public static void sortCustomerAlphabet(Customer[] customer) {
-        Arrays.sort(customer, Customer.SortAlphabet);
-        for (Customer cust : customer) {
-            System.out.println(cust.toString());
-        }
-    }
-
-    //вывод списка покупателей, у которых номер кредитной карточки находится в заданном интервале
-    public static void searchCreditCardNumber(BufferedReader reader, Customer[] customer) throws IOException {
-        System.out.print("Введите начало интервала: ");
-        int begin = Integer.parseInt(reader.readLine());
-        System.out.print("Введите конец интервала: ");
-        int end = Integer.parseInt(reader.readLine());
-        if (begin > end) {
-            int temp = begin;
-            begin = end;
-            end = temp;
-        }
-        int count = 0;
-        for (int i = 0; i < customer.length; i++) {
-            if (customer[i].getCreditCardNumber() >= begin && customer[i].getCreditCardNumber() <= end) {
-                System.out.println(customer[i].toString());
-            } else {
-                count++;
-            }
-        }
-        if (count == customer.length) {
-            System.out.println("Покупатели с кредитными картами в интервале [" + begin + ", " + end + "] не найдены.");
-        }
     }
 }

@@ -1,7 +1,5 @@
 package SimpleClass_08;
 
-import java.util.Comparator;
-
 /* Task 08
 8. Создать класс Customer, спецификация которого приведена ниже.
 Определить конструкторы, set- и get- методы и метод  toString().
@@ -13,10 +11,10 @@ a) список покупателей в алфавитном порядке;
 b) список покупателей, у которых номер кредитной карточки находится в заданном интервале
  */
 public class Customer {
-    private int id;
+    private long id;
     private String lastName;
     private String firstName;
-    private String patronymic;
+    private String middleName;
     private String address;
     private int creditCardNumber;
     private int bankAccountNumber;
@@ -24,21 +22,21 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, String lastName, String firstName, String patronymic, String address, int creditCardNumber, int bankAccountNumber) {
+    public Customer(long id, String lastName, String firstName, String middleName, String address, int creditCardNumber, int bankAccountNumber) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.patronymic = patronymic;
+        this.middleName = middleName;
         this.address = address;
         this.creditCardNumber = creditCardNumber;
         this.bankAccountNumber = bankAccountNumber;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -58,12 +56,12 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getAddress() {
@@ -90,28 +88,13 @@ public class Customer {
         this.bankAccountNumber = bankAccountNumber;
     }
 
-    // сортировка покупателей в алфавитном порядке: фамилия -> имя -> отчество
-    public static Comparator<Customer> SortAlphabet = new Comparator<Customer>() {
-        @Override
-        public int compare(Customer cust1, Customer cust2) {
-            int flag = cust1.getLastName().compareTo(cust2.getLastName());
-            if (flag == 0) {
-                flag = cust1.getFirstName().compareTo(cust2.getFirstName());
-                if (flag == 0) {
-                    flag = cust1.getPatronymic().compareTo(cust2.getPatronymic());
-                }
-            }
-            return flag;
-        }
-    };
-
     @Override
     public String toString() {
         return "Покупатель: " +
                 "id - " + id +
                 ", фамилия - '" + lastName + '\'' +
                 ", имя - '" + firstName + '\'' +
-                ", отчество - '" + patronymic + '\'' +
+                ", отчество - '" + middleName + '\'' +
                 ", адрес - '" + address + '\'' +
                 ", номер кредитной карты - " + creditCardNumber +
                 ", номер банковского счета - " + bankAccountNumber +
