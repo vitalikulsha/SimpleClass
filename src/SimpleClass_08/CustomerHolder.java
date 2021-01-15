@@ -22,6 +22,7 @@ public class CustomerHolder {
 
     public CustomerHolder(Customer[] customer) {
         this.customer = customer;
+        this.quantityCustomers = customer.length;
     }
 
     //вывод списка покупателей по алфавиту
