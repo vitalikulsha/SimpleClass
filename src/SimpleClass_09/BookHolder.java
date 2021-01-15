@@ -27,6 +27,7 @@ public class BookHolder {
         this.book = book;
     }
 
+    //список книг заданного автора;
     public void searchAuthor(String author) {
         boolean test = true;
         for (Book b : this.book) {
