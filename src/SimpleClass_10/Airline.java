@@ -3,7 +3,6 @@ package SimpleClass_10;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /* Task 10
 10. Создать класс Airline, спецификация которого приведена ниже.
@@ -22,13 +21,13 @@ public class Airline {
     private String airplaneType;
     private Date timeDeparture;
     private Date[] dayWeek;
+    private SimpleDateFormat formatTimeDeparture = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat formatDayWeek = new SimpleDateFormat("E");
 
     public Airline() {
     }
 
     public Airline(String destination, String flightNumber, String airplaneType, String timeDeparture, String[] dayWeek) throws ParseException {
-        SimpleDateFormat formatTimeDeparture = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat formatDayWeek = new SimpleDateFormat("E");
         this.destination = destination;
         this.flightNumber = flightNumber;
         this.airplaneType = airplaneType;
@@ -79,10 +78,24 @@ public class Airline {
         this.dayWeek = dayWeek;
     }
 
+    public SimpleDateFormat getFormatTimeDeparture() {
+        return formatTimeDeparture;
+    }
+
+    public void setFormatTimeDeparture(SimpleDateFormat formatTimeDeparture) {
+        this.formatTimeDeparture = formatTimeDeparture;
+    }
+
+    public SimpleDateFormat getFormatDayWeek() {
+        return formatDayWeek;
+    }
+
+    public void setFormatDayWeek(SimpleDateFormat formatDayWeek) {
+        this.formatDayWeek = formatDayWeek;
+    }
+
     @Override
     public String toString() {
-        SimpleDateFormat formatTimeDeparture = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat formatDayWeek = new SimpleDateFormat("E");
         StringBuilder stringBuilder = new StringBuilder("Авиалиния: " +
                 "пункт назначения - '" + destination + '\'' +
                 ", номер рейса - '" + flightNumber + '\'' +
